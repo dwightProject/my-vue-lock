@@ -236,7 +236,7 @@
           status = this.successStyle
           this.normalStyle.fcolor = this.successStyle.fcolor
         }
-        if (val == 'err'){
+        if (val == 'err') {
           status = this.errorStyle
           this.normalStyle.fcolor = this.errorStyle.fcolor
         }
@@ -358,7 +358,7 @@
     right: 0px;
     bottom: 0px;
     margin: auto;
-    background: url("../assets/lock-bg.png") no-repeat;
+    background: black;
     background-size: cover;
     .lock-logo {
       width: 1.5rem;
@@ -366,7 +366,7 @@
       margin-top: 1rem;
     }
     .canvas {
-      margin:0 auto;
+      margin: 0 auto;
     }
     .warns {
       width: 100%;
