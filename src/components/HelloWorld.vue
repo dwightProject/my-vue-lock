@@ -32,28 +32,31 @@
           arcColor: 'white',// stroke圆的 线条颜色
           arcLineWidth: 2 * window.devicePixelRatio,// stroke圆的 线条宽度,
           fillArcColor: 'white',
+          fillArcColor2: 'rgba(255,255,255,0.3)', // 托动中中间小圆的样式
+          fillArcColor3: 'rgba(255,255,255,0.6)',  //初始 中心小圆的颜色
           lineColor: 'white',
           lineWidth: 8,
           fcolor: 'white'
         },
         successStyle: {
-          arcColor: 'skyblue',// stroke圆的 线条颜色
+          arcColor: 'mediumseagreen',// stroke圆的 线条颜色
           arcLineWidth: 2 * window.devicePixelRatio,// stroke圆的 线条宽度,
-          fillArcColor: 'skyblue',
-          lineColor: 'skyblue',
+          fillArcColor: 'mediumseagreen',
+          lineColor: 'mediumseagreen',
           lineWidth: 8,
-          fcolor: 'skyblue'
+          fcolor: 'mediumseagreen'
         },
         errorStyle: {
-          arcColor: 'red',// stroke圆的 线条颜色
+          arcColor: '#f26c4f',// stroke圆的 线条颜色
           arcLineWidth: 2 * window.devicePixelRatio,// stroke圆的 线条宽度,
-          fillArcColor: 'red',
-          lineColor: 'red',
+          fillArcColor: '#f26c4f',
+          lineColor: '#f26c4f',
           lineWidth: 8,
-          fcolor: 'red'
+          fcolor: '#f26c4f'
         },
         warningText: '请设置密码',
         showBoxs: false, //防止 touchend 结束时候 继续操作
+
       }
     },
     computed: {
@@ -71,18 +74,25 @@
         this.ctx.arc(x, y, this.r, 0, Math.PI * 2, true)
         this.ctx.strokeStyle = this.normalStyle.arcColor;
         this.ctx.lineWidth = this.normalStyle.arcLineWidth;
-        this.ctx.stroke()
+        this.ctx.stroke();
+        this.pathFillArc(this.normalStyle.fillArcColor3, this.r / 2.5, x, y)
       },
       // 画实心圆
       drawFillArc() {
         for (let i = 0; i < this.targetCo.length; i++) {
-          this.ctx.beginPath();
-          this.ctx.arc(this.targetCo[i].x, this.targetCo[i].y, this.r / 2.5, 0, Math.PI * 2, true);
-          this.ctx.fillStyle = this.normalStyle.fillArcColor;
-          this.ctx.closePath();
-          this.ctx.fill();
+          this.pathFillArc(this.normalStyle.fillArcColor2, this.r / 1.3, this.targetCo[i].x, this.targetCo[i].y)
+          this.pathFillArc(this.normalStyle.fillArcColor, this.r / 2, this.targetCo[i].x, this.targetCo[i].y)
         }
       },
+
+      pathFillArc(style, r, x, y) {
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
+        this.ctx.fillStyle = style;
+        this.ctx.closePath();
+        this.ctx.fill();
+      },
+
       //
       drawStatusArc() {
         for (var i = 0; i < this.targetCo.length; i++) {
@@ -141,14 +151,13 @@
         for (let i = 0; i < this.arcArr.length; i++) {
           this.drawStrokeArc(this.arcArr[i].x, this.arcArr[i].y);
         }
-        this.drawFillArc()
         this.drawLine(co);
+        this.drawFillArc()
 
         // 得到被 touch 到的圆
         for (let i = 0; i < this.remainingCo.length; i++) {
           if (Math.abs(co.x - this.remainingCo[i].x) < this.r && Math.abs(co.y - this.remainingCo[i].y) < this.r) {
             this.targetCo.push(this.remainingCo[i]);
-            this.drawFillArc();
             this.remainingCo.splice(i, 1);
             break;
           }
@@ -271,6 +280,8 @@
           arcColor: 'white',// stroke圆的 线条颜色
           arcLineWidth: 2 * window.devicePixelRatio,// stroke圆的 线条宽度,
           fillArcColor: 'white',
+          fillArcColor2: 'rgba(255,255,255,0.3)',
+          fillArcColor3: 'rgba(255,255,255,0.6)',
           lineColor: 'white',
           lineWidth: 8,
           fcolor: 'white'
@@ -358,9 +369,8 @@
     right: 0px;
     bottom: 0px;
     margin: auto;
-    /*background: url("../assets/lock-bg.png") no-repeat;*/
-    /*background-size:cover;*/
-    background: black;
+    background: url("../assets/lock-bg.png") no-repeat;
+    background-size: cover;
     .lock-logo {
       width: 1.5rem;
       height: 1.5rem;
