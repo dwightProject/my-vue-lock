@@ -148,7 +148,7 @@
         for (let i = 0; i < this.remainingCo.length; i++) {
           if (Math.abs(co.x - this.remainingCo[i].x) < this.r && Math.abs(co.y - this.remainingCo[i].y) < this.r) {
             this.targetCo.push(this.remainingCo[i]);
-            this.drawFillArc(this.remainingCo[i].x, this.remainingCo[i].y);
+            this.drawFillArc();
             this.remainingCo.splice(i, 1);
             break;
           }
@@ -172,6 +172,7 @@
       storePass(psw) {
         if (psw.length < 4) {
           this.warningText = '密码最少要四个格子';
+          this.normalStyle.fcolor = 'red'
           return;
         } else {
           if (this.pswObj.step == 1) {
@@ -296,7 +297,7 @@
             if (Math.abs(co.x - this.arcArr[i].x) < this.r && Math.abs(co.y - this.arcArr[i].y) < this.r) {
               this.targetCo.push(this.arcArr[i]);
               this.remainingCo.splice(i, 1);
-              this.drawFillArc(this.arcArr[i].x, this.arcArr[i].y);
+              this.drawFillArc();
               this.touchFlag = true;
               break;
             }
@@ -318,7 +319,6 @@
             setTimeout(() => {
               this.reset();
             }, 1000);
-
           }
         });
 
@@ -358,15 +358,18 @@
     right: 0px;
     bottom: 0px;
     margin: auto;
+    /*background: url("../assets/lock-bg.png") no-repeat;*/
+    /*background-size:cover;*/
     background: black;
-    background-size: cover;
     .lock-logo {
       width: 1.5rem;
       height: 1.5rem;
-      margin-top: 1rem;
+      margin: 1rem auto 0.2rem;
+      display: block;
     }
     .canvas {
       margin: 0 auto;
+      display: block;
     }
     .warns {
       width: 100%;
